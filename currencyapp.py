@@ -8,16 +8,24 @@ with urlopen("http://data.fixer.io/api/latest?access_key=37423b9a9d3f0702499cc25
 data = json.loads(source)
 
 def EUtoconvetor(currency_code, amount):
-    centsamt = amount * 100
-    for item in data['rates'].items():
-        if currency_code == item[0]:
-            conversion = int(centsamt) * item[1]
-            conversioneuro = round(conversion/100, 2)
+    print (currency_code)
+    print (amount)
+    print ()
+    try:
+        centsamt = float(amount) * 100
+        if currency_code in data['rates'].keys():
+            for item in data['rates'].items():
+                if currency_code == item[0]:
+                    conversion = int(centsamt) * item[1]
+                    conversioneuro = round(conversion/100, 2)
+                    print ('Yes')
+                    lbl_results['text'] = (conversioneuro)
+        else:
+            lbl_results['text'] = 'Sorry, we could not make the conversion.'
+    except:
+        lbl_results['text'] = 'Sorry, we could not make the conversion.'
 
-            lbl_results['text'] = (conversioneuro)
-
-
-# app = tk.Tk()
+app = tk.Tk()
 
 HEIGHT = 500
 WIDTH = 600
@@ -57,7 +65,7 @@ lbl_amount.grid(row=1, column=0, sticky="w")
 ent_amount.grid(row=1, column=1, sticky="nsew")
 
 btn_submit = tk.Button(master=frm_input, text='Get results!',
-                       command=lambda: EUtoconvetor(ent_curcode.get(), float(ent_amount.get())), bg='#ccffeb')
+                       command=lambda: EUtoconvetor(ent_curcode.get(), (ent_amount.get())), bg='#ccffeb')
 btn_submit.grid(row=2, column=1, sticky="e")
 
 #Results section
