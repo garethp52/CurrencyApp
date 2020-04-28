@@ -17,7 +17,7 @@ def EUtoconvetor(currency_code, amount):
             lbl_results['text'] = (conversioneuro)
 
 
-app = tk.Tk()
+# app = tk.Tk()
 
 HEIGHT = 500
 WIDTH = 600
